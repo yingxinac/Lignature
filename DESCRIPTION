@@ -1,0 +1,15 @@
+Package: Lignature
+Title: Predict cell-cell communication by ligand-signatures
+Version: 0.0.0.9000
+Authors@R: 
+    person("Ying", "Xin", , "yingxinac@gmail.com", role = c("aut", "cre"))
+Description: Predict active ligands driving transcriptomic changes using a curated database of ligand intracellular transcriptomic signatures.
+License: GPL (>= 3)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+Imports: dplyr, Seurat, stringr, RColorBrewer, pheatmap, ggplot2, fgsea, graphite, lsa, devtools, data.table, geneconverter, circlize, tidyverse, randomcoloR, hrbrthemes, ggrepel 
+RoxygenNote: 7.2.3
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
