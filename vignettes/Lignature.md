@@ -53,6 +53,9 @@ Lignature data can be downloaded at
 
 ### Load input data
 
+Example dataset can be downloaded at
+[google drive](https://drive.google.com/drive/folders/15G2RAnpb5wBJqNuY5oEF-5SAYg_xtXo-?usp=drive_link)
+
 ``` r
     load("seuratobj.RData")
     # Remark:
