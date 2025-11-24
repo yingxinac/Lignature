@@ -11,19 +11,19 @@
 #'
 #' @return
 #' Scatterplot of the ligand scores and the maximum avgexpr levels acorss all sender cells and conditions for ligands in identified LR interactions.
-#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table geneconverter circlize tidyverse randomcoloR hrbrthemes ggrepel
+#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table circlize tidyverse randomcoloR hrbrthemes ggrepel caret glmnet
 #' @export
 
 
 getScatter <- function(LRinfolist, LRs, cls_from, cl_to, condpair, Lscore.by = "Lscore_max", point.size = 3) {
-  
+
   condsinpair = str_split(condpair, "_vs_")[[1]]
-  
+
   clpair = sprintf("%s_to_%s", cls_from[1], cl_to)
   LScore = LRinfolist[[clpair]][LRs,Lscore.by]
   names(LScore) = LRs
   mode(LScore) = "numeric"
-  
+
   mycols = vector()
   for (i in 1:length(cls_from)) {
     mycols = c(mycols, sprintf("%s_%s", cls_from[i], condsinpair))
@@ -42,7 +42,7 @@ getScatter <- function(LRinfolist, LRs, cls_from, cl_to, condpair, Lscore.by = "
   maxLexprfrom = colnames(mymatrix)[apply(mymatrix, 1, which.max)]
   names(maxLexpr) = rownames(mymatrix)
   names(maxLexprfrom) = rownames(mymatrix)
-  
+
   myscattermx = cbind.data.frame(LScore, maxLexpr, maxLexprfrom)
   myscattermx = myscattermx[!is.na(myscattermx[,1]),,drop=F]
   myscattermx = myscattermx[!is.na(myscattermx[,1]),,drop=F]
@@ -52,13 +52,13 @@ getScatter <- function(LRinfolist, LRs, cls_from, cl_to, condpair, Lscore.by = "
   plotdf = myscattermx
   numcols = length(unique(plotdf$maxLexprfrom))
   mycols = distinctColorPalette(numcols)
-  ggplot(plotdf, aes(x=LScore, y= maxLexpr, color= maxLexprfrom)) + 
+  ggplot(plotdf, aes(x=LScore, y= maxLexpr, color= maxLexprfrom)) +
     geom_point(size= point.size) +
     theme_ipsum() +
     geom_label_repel(data=plotdf,
                      aes(label = L),
                      label.padding = 0.1,
-                     box.padding   = 0.1, 
+                     box.padding   = 0.1,
                      point.padding = 0.3,
                      segment.color = 'grey50',show.legend = FALSE, size=6) +
     theme(axis.title.y = element_text(size = rel(2), angle = 90)) +
@@ -70,7 +70,7 @@ getScatter <- function(LRinfolist, LRs, cls_from, cl_to, condpair, Lscore.by = "
     theme(legend.text = element_text(size = 15)) +
     theme(axis.title = element_text(size = 10)) +
     theme(plot.title = element_text(size = 15)) +
-    theme(legend.title = element_text(size = 15), 
+    theme(legend.title = element_text(size = 15),
           axis.line = element_line())
-  
+
 }

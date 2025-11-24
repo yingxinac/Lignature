@@ -30,13 +30,11 @@ if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")
 
 **Install dependencies**
 ``` r
-install.packages(c("tidyverse", "Seurat", "RColorBrewer", "pheatmap", "lsa", "data.table", "circlize", "randomcoloR", "hrbrthemes", "ggrepel"))
+install.packages(c("tidyverse", "Seurat", "RColorBrewer", "pheatmap", "lsa", "data.table", "circlize", "randomcoloR", "hrbrthemes", "ggrepel", "caret", "glmnet"))
 bio_pkgs = c("fgsea", "graphite")
 if (!require("BiocManager", quietly = TRUE))
   install.packages("BiocManager")
 BiocManager::install(bio_pkgs)
-library(devtools)
-devtools::install_github("cdesterke/geneconverter")
 ```
 
 **Install Lignature**

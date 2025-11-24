@@ -14,7 +14,7 @@
 #'
 #' @return
 #' .csv tables saved in mydir
-#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table geneconverter circlize tidyverse randomcoloR hrbrthemes ggrepel
+#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table circlize tidyverse randomcoloR hrbrthemes ggrepel caret glmnet
 #' @export
 
 

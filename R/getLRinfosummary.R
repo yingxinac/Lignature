@@ -1,14 +1,5 @@
 ################################################################################
 # Summarize LR info (expression, interaction score, and ligand score)
-# Input:
-# exprinfo: output of "getExprInfo".
-# LRIscorelist: output of "getLRIScore".
-# Lscoredf: output of "getLScore".
-# cl_to: receiver cell-type/cluster.
-# condpair: sample conditions under comparison, in the form of "cond1_vs_cond2".
-# lr_network: a ligand_receptor network matrix with columns "L", "Lgene", "R", and "Rgene".
-# Output:
-# A list of data.frames of LR-info for each sender cell-type/cluster to the specified receiver cell-type/cluster.
 ################################################################################
 
 #' get signed values
@@ -43,13 +34,14 @@ signedmaxabs <- function(x, y) {
 #' @param lr_network a ligand_receptor network matrix with columns "L", "Lgene", "R", and "Rgene".
 #' @param cl_to receiver cell-type/cluster.
 #' @param condpair sample conditions under comparison, in the form of "cond1_vs_cond2".
+#' @param otherLscore additional score columns of Lscoredf.
 #'
 #' @return
 #' A list of data.frames of LR-info for each sender cell-type/cluster to the specified receiver cell-type/cluster
-#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table geneconverter circlize tidyverse randomcoloR hrbrthemes ggrepel
+#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table circlize tidyverse randomcoloR hrbrthemes ggrepel caret glmnet
 #' @export
 
-getLRinfosummary <- function(exprinfo, LRIscorelist, Lscoredf, lr_network, cl_to, condpair) {
+getLRinfosummary <- function(exprinfo, LRIscorelist, Lscoredf, lr_network, cl_to, condpair, otherLscore = NULL) {
   conds = colnames(exprinfo$avgexprlist[[1]])
   condsinpair = str_split(condpair, "_vs_")[[1]]
   otherLs = setdiff(rownames(Lscoredf), lr_network[,"L"])
@@ -65,9 +57,9 @@ getLRinfosummary <- function(exprinfo, LRIscorelist, Lscoredf, lr_network, cl_to
     cl_from = names(exprinfo$avgexprlist)[k]
     clpairk = sprintf("%s_to_%s", cl_from, cl_to)
     clpairids[k] = clpairk
-    LRinfodf = matrix(NA, nrow = nrow(alllrs), ncol = ncol(alllrs) + 8 + length(conds)*6 + 6)
+    LRinfodf = matrix(NA, nrow = nrow(alllrs), ncol = ncol(alllrs) + 8 + length(otherLscore) + length(conds)*6 + 6)
     rownames(LRinfodf) = rownames(alllrs)
-    colnames(LRinfodf) = c(colnames(alllrs), sprintf("Lscore_%s", colnames(Lscoredf)[1:8]),
+    colnames(LRinfodf) = c(colnames(alllrs), sprintf("Lscore_%s", colnames(Lscoredf)[1:8]), sprintf("Lscore_%s", otherLscore),
                            sprintf("SLRI_%s", conds), sprintf("SLRIspec_%s", conds),
                            sprintf("Lpct_%s", conds), sprintf("Rpct_%s", conds), sprintf("Lavg_%s", conds), sprintf("Ravg_%s", conds),
                            sprintf("Lpval_%s", condpair), sprintf("Lavglog2FC_%s", condpair), sprintf("Lpadj_%s", condpair),
@@ -78,6 +70,14 @@ getLRinfosummary <- function(exprinfo, LRIscorelist, Lscoredf, lr_network, cl_to
       Li = LRinfodf[i,"L"]
       if (Li %in% rownames(Lscoredf)) {
         LRinfodf[i,sprintf("Lscore_%s", colnames(Lscoredf)[1:8])] = Lscoredf[Li,1:8]
+      }
+    }
+    if (length(otherLscore) > 0) {
+      for (i in 1:nrow(LRinfodf)) {
+        Li = LRinfodf[i,"L"]
+        if (Li %in% rownames(Lscoredf)) {
+          LRinfodf[i,sprintf("Lscore_%s", otherLscore)] = Lscoredf[Li,otherLscore]
+        }
       }
     }
     LRIscoredf = LRIscorelist$score[[clpairk]]

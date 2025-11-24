@@ -43,7 +43,7 @@
 #' @return
 #' Heatmap of the average expression of ligands in sender cells in each condition, average expression of receptors in specified receiver cells in each condition,
 #' or the corresponding ligand scores calculated by Lignature signatures, for identified LR interactions
-#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table geneconverter circlize tidyverse randomcoloR hrbrthemes ggrepel
+#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table circlize tidyverse randomcoloR hrbrthemes ggrepel caret glmnet
 #' @export
 
 

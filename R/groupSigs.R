@@ -16,7 +16,7 @@
 #' a list siggroups:
 #' siggroups$sigLs: the vector of ligands in Lignature
 #' siggroups$siggroups: the list of signatureid-vectors of each ligand
-#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table geneconverter circlize tidyverse randomcoloR hrbrthemes ggrepel
+#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table circlize tidyverse randomcoloR hrbrthemes ggrepel caret glmnet
 #' @export
 
 

@@ -4,7 +4,15 @@
 \alias{getLRinfosummary}
 \title{Summarize LR info (expression, interaction score, and ligand score)}
 \usage{
-getLRinfosummary(exprinfo, LRIscorelist, Lscoredf, lr_network, cl_to, condpair)
+getLRinfosummary(
+  exprinfo,
+  LRIscorelist,
+  Lscoredf,
+  lr_network,
+  cl_to,
+  condpair,
+  otherLscore = NULL
+)
 }
 \arguments{
 \item{exprinfo}{output of "getExprInfo".}
@@ -18,6 +26,8 @@ getLRinfosummary(exprinfo, LRIscorelist, Lscoredf, lr_network, cl_to, condpair)
 \item{cl_to}{receiver cell-type/cluster.}
 
 \item{condpair}{sample conditions under comparison, in the form of "cond1_vs_cond2".}
+
+\item{otherLscore}{additional score columns of Lscoredf.}
 }
 \value{
 A list of data.frames of LR-info for each sender cell-type/cluster to the specified receiver cell-type/cluster

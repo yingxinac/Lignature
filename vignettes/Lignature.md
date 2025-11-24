@@ -9,12 +9,13 @@
     library(lsa)
     library(devtools)
     library(data.table)
-    library(geneconverter) 
     library(circlize)
     library(tidyverse)
     library(randomcoloR)
     library(hrbrthemes)
     library(ggrepel)
+    library(caret)
+    library(glmnet)
     library(Lignature)
     `%!in%` <- Negate(`%in%`)
     `%notin%` <- Negate(`%in%`)
@@ -107,7 +108,7 @@ Example dataset can be downloaded at
 
 ### Get ligand-scores for specified receiver cells and sample-condition pair
 
-**(e.g. “Myeloid” cells, “C\_vs\_NC”)**
+**(e.g.“Myeloid” cells, “C\_vs\_NC”)**
 
 ``` r
     cl_to = "Myeloid"
@@ -121,13 +122,29 @@ Example dataset can be downloaded at
     # "sign-maxabs" provides the sign of the signature-score with the maximum absolute values, "pos_maxabs" and "neg_maxabs" provide the signature-scores with the highest absolute values among
     # signatures with positive or negative socres corresponding to each signature, and the columns "sig_***" specify the signautre-ids corresponding to the ligand-scores.
 ```
+**(Optional) Get confidence scores for specified ligand-scores (against distribution of signature similarities between different ligands)**
+
+``` r
+    whichLscore = "max" # specify a score column of Lscoredf
+    Lscoredf$confscore = getconfscore(myscores = Lscoredf[,whichLscore], siglist = siglist, siggroups = siggroups, whichsig = "lfc", method = "cor.pearson") 
+    # Remark: Scoring settings should be consistent with the settings used in "getSigScore"
+```
+
+**(Optional) Lignature supports combinatorial analysis through Lasso, Ridge, or Elastic Net regression**
+
+``` r
+    Lcomb = getLcomb(siglist = siglist, testsig = mysiglist[[cl_to]][[condpair]], siggroups = siggroups, sigLs = sigLs, whichsig = "lfc", combmethod = "lasso") 
+    # combmethod: "lasso", "ridge", or "elasticnet".
+    Lscoredf$Lweight = Lcomb$Lscores[rownames(Lscoredf)]
+```
 
 ### Organize LR info
 
 ``` r
     LRinfolist = getLRinfosummary(exprinfo = exprinfo, LRIscorelist = LRIscorelist, Lscoredf = Lscoredf, lr_network = lr_network, 
-                                  cl_to = cl_to, condpair = condpair)
-    # Remark: in the matrics of the output lis, "condmax" in the column names represents maximum values across conditions.
+                                  cl_to = cl_to, condpair = condpair, otherLscore = c("confscore", "Lweight"))
+    # Remark: in the matrics of the output list, "condmax" in the column names represents maximum values across conditions.
+    # By default, otherLscore = NULL, when there is no other ligand-score columns added to Lscoredf
  ```
     
 **Get scatter plot of specified ligand scores and LR-interactoin scores (maximum from all sender cells) for LR pairs with these scores available**

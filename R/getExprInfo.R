@@ -28,7 +28,7 @@
 #' exprinfo$avgexprlist: list of average expression matrix (genes in rows, sample conditions in columns) of each cell-type/cluser in cls
 #' exprinfo$pctexprlist: list of gene detection rate matrix (genes in rows, sample conditions in columns) of each cell-type/cluser in cls
 #' exprinfo$DElist: list of differential expression matrix (genes in rows) of each cell-type/cluser in cls, each sample condition pair in condpairs
-#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table geneconverter circlize tidyverse randomcoloR hrbrthemes ggrepel
+#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table circlize tidyverse randomcoloR hrbrthemes ggrepel caret glmnet
 #' @export
 
 

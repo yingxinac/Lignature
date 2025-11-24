@@ -7,7 +7,7 @@ Description: Predict active ligands driving transcriptomic changes using a curat
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-Imports: dplyr, Seurat, stringr, RColorBrewer, pheatmap, ggplot2, fgsea, graphite, lsa, devtools, data.table, geneconverter, circlize, tidyverse, randomcoloR, hrbrthemes, ggrepel 
+Imports: dplyr, Seurat, stringr, RColorBrewer, pheatmap, ggplot2, fgsea, graphite, lsa, devtools, data.table, circlize, tidyverse, randomcoloR, hrbrthemes, ggrepel, caret, glmnet 
 RoxygenNote: 7.2.3
 Suggests: 
     knitr,

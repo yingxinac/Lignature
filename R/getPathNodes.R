@@ -18,7 +18,7 @@
 #'
 #' @return
 #' a list of the gene-nodes (represented by gene symbols) of KEGG pathways with the number of included gene-nodes bounded by numnode_min and numnode_max
-#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table geneconverter circlize tidyverse randomcoloR hrbrthemes ggrepel
+#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table circlize tidyverse randomcoloR hrbrthemes ggrepel caret glmnet
 #' @export
 
 

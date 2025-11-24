@@ -24,7 +24,7 @@
 #'
 #' @return
 #' similarity score
-#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table geneconverter circlize tidyverse randomcoloR hrbrthemes ggrepel
+#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table circlize tidyverse randomcoloR hrbrthemes ggrepel caret glmnet
 #' @export
 mymetric <- function(a, b, mymethod) {
   if (mymethod == "cosine.similarity") {
@@ -60,7 +60,7 @@ mymetric <- function(a, b, mymethod) {
 #'
 #' @return
 #' a list of two vectors: a vector of signature scores and a vector of score-pvalues
-#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table geneconverter circlize tidyverse randomcoloR hrbrthemes ggrepel
+#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table circlize tidyverse randomcoloR hrbrthemes ggrepel caret glmnet
 #' @export
 
 getSigScore <- function(siglist, testsig, whichsig = "lfc",

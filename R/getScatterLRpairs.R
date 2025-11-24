@@ -12,7 +12,7 @@
 #'
 #' @return
 #' Scatterplot of specified ligand scores and LR-interactoin scores (maximum from all sender cells) for LR pairs with these scores available.
-#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table geneconverter circlize tidyverse randomcoloR hrbrthemes ggrepel
+#' @import dplyr Seurat stringr RColorBrewer pheatmap ggplot2 fgsea graphite lsa devtools data.table circlize tidyverse randomcoloR hrbrthemes ggrepel caret glmnet
 #' @export
 
 
